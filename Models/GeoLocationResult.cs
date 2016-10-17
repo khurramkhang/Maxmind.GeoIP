@@ -1,7 +1,7 @@
 ﻿using EPiServer.Personalization;
 using System;
 
-namespace EPiServer.Extensions.Maxmind.GeoIp.Models
+namespace Pixie.Extensions.Maxmind.GeoIp.Models
 {
     public class GeoLocationResult : IGeolocationResult
     {

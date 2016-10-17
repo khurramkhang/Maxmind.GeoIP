@@ -9,43 +9,55 @@ using EPiServer.Web;
 using System.IO;
 using System.Net.Sockets;
 using MaxMind.GeoIP2;
-using EPiServer.Extensions.Maxmind.GeoIp.Models;
+using Pixie.Extensions.Maxmind.GeoIp.Models;
+using Pixie.Extensions.Maxmind.GeoIp.Services;
 
-namespace EPiServer.Extensions.Maxmind.GeoIp.Provider
+namespace Pixie.Extensions.Maxmind.GeoIp.Provider
 {
     public class MaxmindGeoIp2 : GeolocationProviderBase
     {
+
+        private readonly IGeolocationService geolocationService;
         private const string DatabaseParameterName = "databaseFileName";
+        private string maxMindDatabaseFileName = "GeoLite2-City.mmdb";
+        NameValueCollection baseConfig = new NameValueCollection();
+        NameValueCollection extraConfig = new NameValueCollection();
+        private List<string> extraParamsArray;
+        private Capabilities capabilities;
 
-        private string _maxMindDatabaseFileName = "GeoLite2-City.mmdb";
-
-        private Capabilities _capabilities;
+        public MaxmindGeoIp2(IGeolocationService geolocationService)
+        {
+            this.geolocationService = geolocationService;
+        }
 
         public override Capabilities Capabilities
         {
             get
             {
-                return this._capabilities;
+                return capabilities;
             }
         }
 
         public override void Initialize(string name, NameValueCollection config)
         {
-            string text = config["databaseFileName"];
-            if (!string.IsNullOrEmpty(text))
+            for (int i = 0; i < config.Count; i++)
             {
-                this._maxMindDatabaseFileName = VirtualPathUtilityEx.RebasePhysicalPath(text);
-                config.Remove("databaseFileName");
-            }
-            if (!File.Exists(this._maxMindDatabaseFileName))
-            {
-                base.Initialize(name, config);
-                return;
+                string key = config.GetKey(i);
+                switch (key)
+                {
+                    case "name":
+                    case "type":
+                        baseConfig.Add(key, config[i]);
+                        break;
+                    default:
+                        extraConfig.Add(key, config[i]);
+                        break;
+                }
             }
 
-            this._capabilities = (Capabilities.Location | Capabilities.ContinentCode | Capabilities.CountryCode | Capabilities.Region);
+            capabilities = (Capabilities.Location | Capabilities.ContinentCode | Capabilities.CountryCode | Capabilities.Region);
 
-            base.Initialize(name, config);
+            base.Initialize(name, baseConfig);
         }
 
         public override IEnumerable<string> GetContinentCodes()
@@ -79,39 +91,7 @@ namespace EPiServer.Extensions.Maxmind.GeoIp.Provider
 
         public override IGeolocationResult Lookup(IPAddress address)
         {
-            if (address.AddressFamily != AddressFamily.InterNetwork)
-            {
-                return null;
-            }
-            try
-            {
-                using (var reader = new DatabaseReader(this._maxMindDatabaseFileName))
-                {
-                    var dbResult = reader.City(address);
-
-                    if (dbResult == null)
-                    {
-                        return null;
-                    }
-
-                    GeoLocationResult result = new GeoLocationResult();
-                    result.CountryCode = dbResult.Country.IsoCode;
-                    result.CountryName = dbResult.Country.Name;
-                    result.Latitude = (dbResult.Location.Latitude != null) ? dbResult.Location.Latitude.Value : 0;
-                    result.Longitude = (dbResult.Location.Longitude != null) ? dbResult.Location.Longitude.Value : 0;
-                    result.MetroCode = (dbResult.Location.MetroCode != null) ? dbResult.Location.MetroCode.Value : 0;
-                    result.City = dbResult.City.Name;
-                    result.PostalCode = dbResult.Postal.Code;
-                    result.CountinentCode = dbResult.Continent.Code;
-
-                    return result;
-
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return null;
+            return geolocationService.GetGeoLocation(address, extraConfig);
         }
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{057FC15B-5276-4DEA-B9EB-ED8212CCFC10}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EPiServer.Extensions.Maxmind.GeoIp</RootNamespace>
-    <AssemblyName>EPiServer.Extensions.Maxmind.GeoIp</AssemblyName>
+    <RootNamespace>Pixie.Extensions.Maxmind.GeoIp</RootNamespace>
+    <AssemblyName>Pixie.Extensions.Maxmind.GeoIp</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -122,11 +122,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Initialization\DependencyResolverInitialization.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Geographics.cs" />
     <Compile Include="Models\GeoLocationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\MaxmindGeoIp2.cs" />
+    <Compile Include="Services\GeolocationMaxmindService.cs" />
+    <Compile Include="Services\IGeolocationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

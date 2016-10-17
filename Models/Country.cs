@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EPiServer.Extensions.Maxmind.GeoIp.Models
+namespace Pixie.Extensions.Maxmind.GeoIp.Models
 {
     public class Country
     {
