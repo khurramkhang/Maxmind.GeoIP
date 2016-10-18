@@ -16,6 +16,7 @@ namespace Pixie.Extensions.Maxmind.GeoIp.Services
         public GeoLocationResult GetGeoLocation(IPAddress address, NameValueCollection config)
         {
             string text = config["databaseFileName"];
+
             if (!string.IsNullOrEmpty(text))
             {
                 maxMindDatabaseFileName = VirtualPathUtilityEx.RebasePhysicalPath(text);

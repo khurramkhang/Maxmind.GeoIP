@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoIp", "GeoIp.csproj", "{057FC15B-5276-4DEA-B9EB-ED8212CCFC10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoIpTests", "..\GeoIpTests\GeoIpTests.csproj", "{790C223E-A730-404B-8407-785FDD8959B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoIpTests", "GeoIpTests\GeoIpTests.csproj", "{790C223E-A730-404B-8407-785FDD8959B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
