@@ -11,6 +11,9 @@ using System.Net.Sockets;
 using MaxMind.GeoIP2;
 using Pixie.Extensions.Maxmind.GeoIp.Models;
 using Pixie.Extensions.Maxmind.GeoIp.Services;
+using StructureMap;
+using StructureMap.Graph;
+using Pixie.Extensions.Maxmind.GeoIp.Initialization;
 
 namespace Pixie.Extensions.Maxmind.GeoIp.Provider
 {
@@ -24,6 +27,11 @@ namespace Pixie.Extensions.Maxmind.GeoIp.Provider
         NameValueCollection extraConfig = new NameValueCollection();
         private List<string> extraParamsArray;
         private Capabilities capabilities;
+
+        public MaxmindGeoIp2()
+        {
+            geolocationService = DependencyResolver.GeolocationService();
+        }
 
         public MaxmindGeoIp2(IGeolocationService geolocationService)
         {

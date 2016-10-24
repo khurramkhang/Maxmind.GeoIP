@@ -122,7 +122,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Initialization\DependencyResolverInitialization.cs" />
+    <Compile Include="Initialization\DependencyResolver.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Geographics.cs" />
     <Compile Include="Models\GeoLocationResult.cs" />
