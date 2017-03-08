@@ -33,7 +33,8 @@ namespace Pixie.Extensions.Maxmind.GeoIp.Services
                 throw new ArgumentException(string.Format("db does not exist at location {0}", maxMindDatabaseFileName));
             }
 
-            if (address.AddressFamily != AddressFamily.InterNetwork)
+            if (address.AddressFamily != AddressFamily.InterNetwork &&
+                address.AddressFamily != AddressFamily.InterNetworkV6)
             {
                 return null;
             }
