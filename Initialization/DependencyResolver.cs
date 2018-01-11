@@ -1,10 +1,9 @@
 ﻿using Pixie.Extensions.Maxmind.GeoIp.Services;
 using StructureMap;
-using StructureMap.Configuration.DSL;
 
 namespace Pixie.Extensions.Maxmind.GeoIp.Initialization
 {
-    public class DependencyResolver 
+    public class DependencyResolver
     {
         private static IContainer _container;
 
@@ -12,7 +11,7 @@ namespace Pixie.Extensions.Maxmind.GeoIp.Initialization
         {
             get
             {
-                if (_container == null) 
+                if (_container == null)
                     InitializeContainer();
 
                 return _container;
@@ -27,6 +26,6 @@ namespace Pixie.Extensions.Maxmind.GeoIp.Initialization
         public static IGeolocationService GeolocationService()
         {
             return Container.GetInstance<IGeolocationService>();
-        }        
+        }
     }
 }
