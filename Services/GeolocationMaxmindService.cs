@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net;
-using EPiServer.Personalization;
+﻿using EPiServer.Web;
 using MaxMind.GeoIP2;
-using System.Net.Sockets;
 using Pixie.Extensions.Maxmind.GeoIp.Models;
+using System;
 using System.Collections.Specialized;
-using EPiServer.Web;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Pixie.Extensions.Maxmind.GeoIp.Services
 {

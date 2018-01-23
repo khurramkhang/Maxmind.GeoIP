@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Net;
-using EPiServer.Personalization;
-using System.Collections.Specialized;
-using EPiServer.Web;
-using System.IO;
-using System.Net.Sockets;
-using MaxMind.GeoIP2;
+﻿using EPiServer.Personalization;
+using Pixie.Extensions.Maxmind.GeoIp.Initialization;
 using Pixie.Extensions.Maxmind.GeoIp.Models;
 using Pixie.Extensions.Maxmind.GeoIp.Services;
-using StructureMap;
-using StructureMap.Graph;
-using Pixie.Extensions.Maxmind.GeoIp.Initialization;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Net;
 
 namespace Pixie.Extensions.Maxmind.GeoIp.Provider
 {
