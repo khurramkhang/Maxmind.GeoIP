@@ -52,13 +52,14 @@ namespace Pixie.Extensions.Maxmind.GeoIp.Services
                     GeoLocationResult result = new GeoLocationResult();
                     result.CountryCode = dbResult.Country.IsoCode;
                     result.CountryName = dbResult.Country.Name;
-                    result.Latitude = (dbResult.Location.Latitude != null) ? dbResult.Location.Latitude.Value : 0;
-                    result.Longitude = (dbResult.Location.Longitude != null) ? dbResult.Location.Longitude.Value : 0;
-                    result.MetroCode = (dbResult.Location.MetroCode != null) ? dbResult.Location.MetroCode.Value : 0;
+                    result.Latitude = dbResult.Location.Latitude ?? 0;
+                    result.Longitude = dbResult.Location.Longitude ?? 0;
+                    result.MetroCode = dbResult.Location.MetroCode ?? 0;
                     result.City = dbResult.City.Name;
                     result.PostalCode = dbResult.Postal.Code;
                     result.CountinentCode = dbResult.Continent.Code;
-
+                    result.Region = dbResult?.MostSpecificSubdivision?.IsoCode;
+                    result.RegionName = dbResult.MostSpecificSubdivision?.Name;
                     return result;
 
                 }
