@@ -5,11 +5,14 @@ using System;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Sockets;
+using EPiServer.Logging;
 
 namespace Pixie.Extensions.Maxmind.GeoIp.Services
 {
     public class GeolocationMaxmindService : IGeolocationService
     {
+        private static readonly ILogger Log = LogManager.GetLogger();
+
         private string maxMindDatabaseFileName = "GeoLite2-City.mmdb";
 
         public GeoLocationResult GetGeoLocation(IPAddress address, NameValueCollection config)
@@ -32,8 +35,8 @@ namespace Pixie.Extensions.Maxmind.GeoIp.Services
                 throw new ArgumentException(string.Format("db does not exist at location {0}", maxMindDatabaseFileName));
             }
 
-            if (address.AddressFamily != AddressFamily.InterNetwork &&
-                address.AddressFamily != AddressFamily.InterNetworkV6)
+            if (IPAddress.IsLoopback(address) || (address.AddressFamily != AddressFamily.InterNetwork &&
+                                                  address.AddressFamily != AddressFamily.InterNetworkV6))
             {
                 return null;
             }
@@ -66,7 +69,8 @@ namespace Pixie.Extensions.Maxmind.GeoIp.Services
             }
             catch (Exception ex)
             {
-                throw;
+                Log.Error($"Unable to get location for IP {address}", ex);
+                return null;
             }
         }
     }
