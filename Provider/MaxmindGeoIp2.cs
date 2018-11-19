@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
+using EPiServer.ServiceLocation;
 
 namespace Pixie.Extensions.Maxmind.GeoIp.Provider
 {
@@ -23,7 +24,7 @@ namespace Pixie.Extensions.Maxmind.GeoIp.Provider
 
         public MaxmindGeoIp2()
         {
-            geolocationService = DependencyResolver.GeolocationService();
+            geolocationService = ServiceLocator.Current.GetInstance<IGeolocationService>();
         }
 
         public MaxmindGeoIp2(IGeolocationService geolocationService)
